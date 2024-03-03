@@ -412,33 +412,6 @@ class CriteriaUser
                 }
                 break;
 
-            case $prefix . 'birth_day':
-                if ($user->Profile->dob_day)
-                {
-                    if ($user->Profile->dob_day == $data['day']) {
-                        $returnValue = true;
-                    }
-                }
-                break;
-
-            case $prefix . 'birth_month':
-                if ($user->Profile->dob_month)
-                {
-                    if ($user->Profile->dob_month == $data['month']) {
-                        $returnValue = true;
-                    }
-                }
-                break;
-
-            case $prefix . 'birth_year':
-                if ($user->Profile->dob_year)
-                {
-                    if ($user->Profile->dob_year == $data['year']) {
-                        $returnValue = true;
-                    }
-                }
-                break;
-
             case $prefix . 'user_upgrades':
                 if ($user->thuc_has_active_user_upgrade) {
                     $returnValue = true;
@@ -1490,6 +1463,24 @@ class CriteriaUser
                 }
                 break;
 
+            case $prefix . 'birthday_set':
+                if ($user->Profile->dob_year && $user->Profile->dob_month && $user->Profile->dob_day) {
+                    $returnValue = true;
+                }
+                break;
+
+            case $prefix . 'birthday_day_month_visible':
+                if ($user->Option->show_dob_date) {
+                    $returnValue = true;
+                }
+                break;
+
+            case $prefix . 'birthday_year_visible':
+                if ($user->Option->show_dob_year) {
+                    $returnValue = true;
+                }
+                break;
+
             case $prefix . 'age':
                 if ($user->Profile->dob_year && $user->Profile->dob_month && $user->Profile->dob_day) {
                     $birthday = (new Carbon())
@@ -1513,6 +1504,33 @@ class CriteriaUser
                         ->startOfDay();
 
                     if ($birthday->diffInYears() <= $data['years']) {
+                        $returnValue = true;
+                    }
+                }
+                break;
+
+            case $prefix . 'birth_day':
+                if ($user->Profile->dob_day)
+                {
+                    if ($user->Profile->dob_day == $data['day']) {
+                        $returnValue = true;
+                    }
+                }
+                break;
+
+            case $prefix . 'birth_month':
+                if ($user->Profile->dob_month)
+                {
+                    if ($user->Profile->dob_month == $data['month']) {
+                        $returnValue = true;
+                    }
+                }
+                break;
+
+            case $prefix . 'birth_year':
+                if ($user->Profile->dob_year)
+                {
+                    if ($user->Profile->dob_year == $data['year']) {
                         $returnValue = true;
                     }
                 }
